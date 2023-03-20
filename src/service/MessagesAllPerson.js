@@ -1,8 +1,8 @@
 const { MessagesRepository } = require("../repository/MessagesRepository");
 
 class MessagesAllPerson {
-  async handle(id) {
-    const messages = await MessagesRepository.listMessagesOnePerson(id);
+  async handle(myId, otherPeploe) {
+    const messages = await MessagesRepository.listMessagesOnePerson(myId, otherPeploe);
 
     return messages;
   }

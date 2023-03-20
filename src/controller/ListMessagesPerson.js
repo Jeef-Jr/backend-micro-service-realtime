@@ -3,9 +3,9 @@ const { MessagesAllPerson } = require("../service/MessagesAllPerson");
 
 module.exports = async (params, callback) => {
 
-    const {id} = params;
+    const {myId, otherPeploe} = params;
 
-    const messages = await new MessagesAllPerson().handle(id);
+    const messages = await new MessagesAllPerson().handle(myId, otherPeploe);
 
     callback(messages)
 }
