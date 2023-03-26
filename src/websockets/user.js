@@ -1,5 +1,6 @@
 // socketIO.to(globalOnline[0]).emit("message", "mensagem para você!");
 
+const AttStateMessageActive = require("../controller/AttStateMessageActive");
 const ListMessagesPerson = require("../controller/ListMessagesPerson");
 const MessagesVisualized = require("../controller/MessagesVisualized");
 const SendMessage = require("../controller/SendMessage");
@@ -21,6 +22,8 @@ global.socketIO.on("connect", (socket) => {
     socket.on("sendMessage", SendMessage)
 
     socket.on("messagesVisualized", MessagesVisualized)
+
+    socket.on("atualizarStateMessageActive", AttStateMessageActive)
 
 
   });
