@@ -7,5 +7,6 @@ module.exports = async (params, callback) => {
 
     const messages = await new MessagesAllPerson().handle(myId, otherPeploe);
 
+
     callback(messages)
 }

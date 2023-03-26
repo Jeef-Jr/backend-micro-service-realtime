@@ -18,6 +18,10 @@ const MessageModel = database.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    idFriend: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     message: {
       type: Sequelize.STRING,
       allowNull: false,

@@ -23,6 +23,25 @@ class FriendsRepository extends Friend {
 
     return friends;
   }
+
+  static async listOneFriend(idSender, idReceiver) {
+
+    const friend = await this.sequelize.query(
+      `
+      SELECT F.id FROM friends AS F 
+      WHERE F.idReceiver = '${idReceiver}' 
+      AND F.idSender = '${idSender}' OR
+      F.idReceiver = '${idSender}' 
+      AND F.idSender = '${idReceiver}'
+      `,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+      
+      return friend;
+  }
+
 }
 
 module.exports = { FriendsRepository };
