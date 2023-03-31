@@ -2,6 +2,8 @@
   const database = require("./src/database/db");
   const User = require("./src/model/UserModel");
   const Message = require("./src/model/MessageModel");
+  const Group = require("./src/model/GroupModel");
+  const UserGroup = require("./src/model/UserGroup");
   const Friend = require("./src/model/FriendModel");
   await database.sync();
 
@@ -30,11 +32,11 @@
   // });
 
 
-  const Friends = Friend.create({
-    idSender: "68ba3718-5d7a-4ebd-86c4-61789fef49bf",
-    idReceiver: "b0083bac-d4ee-43d7-bccc-67e458fd10d2",
-    active: true,
-  });
+  // const Friends = Friend.create({
+  //   idSender: "68ba3718-5d7a-4ebd-86c4-61789fef49bf",
+  //   idReceiver: "b0083bac-d4ee-43d7-bccc-67e458fd10d2",
+  //   active: true,
+  // });
 
   // const Message1 = Message.create({
   //   idSender: "09b07c04-88de-4b3f-80a3-43853195f3e5",
