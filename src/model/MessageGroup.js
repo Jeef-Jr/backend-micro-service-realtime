@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const database = require("../database/db");
 
-const UserGroup = database.define(
-  "user_group",
+const MessageGroupModel = database.define(
+  "message_group",
   {
     id: {
       type: Sequelize.UUID,
@@ -10,26 +10,16 @@ const UserGroup = database.define(
       allowNull: false,
       primaryKey: true,
     },
-    idGroup: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
     idUser: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    isAdmin: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-      allowNull: false,
-    },
-    role: {
+    idGroup: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    isActive: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
+    message: {
+      type: Sequelize.STRING,
       allowNull: false,
     },
   },
@@ -39,4 +29,4 @@ const UserGroup = database.define(
   }
 );
 
-module.exports = UserGroup;
+module.exports = MessageGroupModel;

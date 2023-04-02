@@ -22,7 +22,7 @@ const Group = database.define("group", {
   },
   isPrivate: {
     type: Sequelize.BOOLEAN,
-    allowNull: false,
+    allowNull: true,
     defaultValue: false
   }
 });

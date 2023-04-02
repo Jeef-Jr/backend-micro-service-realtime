@@ -2,6 +2,7 @@
   const database = require("./src/database/db");
   const User = require("./src/model/UserModel");
   const Message = require("./src/model/MessageModel");
+  const MessageGroupModel = require("./src/model/MessageGroup");
   const Group = require("./src/model/GroupModel");
   const UserGroup = require("./src/model/UserGroup");
   const Friend = require("./src/model/FriendModel");

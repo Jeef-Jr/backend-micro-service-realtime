@@ -26,6 +26,11 @@ const MessageModel = database.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    visualizado: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
   },
   {
     charset: "utf8mb4",

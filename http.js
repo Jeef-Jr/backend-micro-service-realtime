@@ -2,8 +2,10 @@ const express = require("express");
 const { createServer } = require("http");
 const path = require("path");
 const { Server } = require("socket.io");
+const cors = require("cors");
 
 const app = express();
+const { router } = require("./routes");
 
 const http = createServer(app);
 const userSocket = require("./src/websockets/user");
@@ -14,9 +16,7 @@ const io = new Server(http, {
 
 io.on("connection", (socket) => {
   socket.on("disconnect", () => {
-
-   console.log(socket.id + " disconnected.");
-
+    console.log(socket.id + " disconnected.");
   });
 });
 
@@ -26,6 +26,10 @@ userSocket();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
+app.use(router);
+
+app.use("/images", express.static(path.join(__dirname, "..", "imagem/")));
 
 app.use((err, req, res, next) => {
   if (err instanceof Error) {
