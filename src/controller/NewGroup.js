@@ -1,3 +1,4 @@
+const { FindPersonMessage } = require("../service/FindPersonMessage");
 const { AddParticipante } = require("../service/group/AddParticipante");
 const { CreateNewGroup } = require("../service/group/CreateNewGroup");
 
@@ -13,10 +14,22 @@ module.exports = async (params, callback) => {
 
   const participants = [...participantes];
 
-  participants.forEach(async (d) => {
+  const dadosMyPerson = await new FindPersonMessage().handle(myId);
+
+  for (const d of participants) {
+    const { socketId } = await new FindPersonMessage().handle(d.id);
     await new AddParticipante().handle(idGrupo, d.id, false, "Usuário", false);
-    // Emitir socket.TO para os usuários um convite para o grupo
-  });
+    global.socketIO
+      .to(socketId)
+      .emit("notifications", {
+        type: 1,
+        nome: dadosMyPerson.nome,
+        nomeGroup: nome,
+        message: "Você foi convidado para participar de um novo grupo, para entrar basta aceita-lo.",
+        img: img,
+        createAt: dados.dataValues.createAt,
+      });
+  }
 
   callback(params);
 };
