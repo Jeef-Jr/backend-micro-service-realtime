@@ -1,6 +1,9 @@
 const { FindPersonMessage } = require("../service/FindPersonMessage");
 const { AddParticipante } = require("../service/group/AddParticipante");
 const { CreateNewGroup } = require("../service/group/CreateNewGroup");
+const {
+  SendNotification,
+} = require("../service/notification/SendNotification");
 
 module.exports = async (params, callback) => {
   console.log("🚀 ~ file: NewGroup.js:4 ~ params:", [params]);
@@ -14,21 +17,25 @@ module.exports = async (params, callback) => {
 
   const participants = [...participantes];
 
-  const dadosMyPerson = await new FindPersonMessage().handle(myId);
-
   for (const d of participants) {
     const { socketId } = await new FindPersonMessage().handle(d.id);
     await new AddParticipante().handle(idGrupo, d.id, false, "Usuário", false);
-    global.socketIO
-      .to(socketId)
-      .emit("notifications", {
-        type: 1,
-        nome: dadosMyPerson.nome,
-        nomeGroup: nome,
-        message: "Você foi convidado para participar de um novo grupo, para entrar basta aceita-lo.",
-        img: img,
-        createAt: dados.dataValues.createAt,
-      });
+
+    const dados = {
+      type: "GROUP",
+      idSender: myId,
+      idReceiver: d.id,
+      title: nome,
+      description:
+        "Você foi convidado para participar de um novo grupo, para entrar basta aceita-lo.",
+      img: img,
+      isVisualizado: false,
+      isAcepty: false,
+    };
+
+    await new SendNotification().handle(dados);
+
+    global.socketIO.to(socketId).emit("notifications", dados);
   }
 
   callback(params);
