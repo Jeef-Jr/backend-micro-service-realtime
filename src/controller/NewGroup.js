@@ -17,23 +17,36 @@ module.exports = async (params, callback) => {
 
   const participants = [...participantes];
 
+  const dadosMyPerson = await new FindPersonMessage().handle(myId);
+
   for (const d of participants) {
     const { socketId } = await new FindPersonMessage().handle(d.id);
     await new AddParticipante().handle(idGrupo, d.id, false, "Usuário", false);
 
-    const dados = {
+    const saveNotification = {
       type: "GROUP",
       idSender: myId,
       idReceiver: d.id,
       title: nome,
-      description:
-        "Você foi convidado para participar de um novo grupo, para entrar basta aceita-lo.",
+      description: `Você foi convidado para participar de um novo grupo, (${nome}) para entrar basta aceita-lo.`,
       img: img,
       isVisualizado: false,
       isAcepty: false,
     };
 
-    await new SendNotification().handle(dados);
+    const dados = {
+      type: "GROUP",
+      nomeSender: dadosMyPerson.nome,
+      imgSender: dadosMyPerson.img,
+      idReceiver: d.id,
+      title: nome,
+      description: `Você foi convidado para participar de um novo grupo, (${nome}) para entrar basta aceita-lo.`,
+      img: img,
+      isVisualizado: false,
+      isAcepty: false,
+    };
+
+    await new SendNotification().handle(saveNotification);
 
     global.socketIO.to(socketId).emit("notifications", dados);
   }

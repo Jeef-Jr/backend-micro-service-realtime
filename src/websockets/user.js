@@ -2,8 +2,10 @@
 
 const AttStateMessageActive = require("../controller/AttStateMessageActive");
 const ListMessagesPerson = require("../controller/ListMessagesPerson");
+const ListNotification = require("../controller/ListNotification");
 const MessagesVisualized = require("../controller/MessagesVisualized");
 const NewGroup = require("../controller/NewGroup");
+const NotificationVisualized = require("../controller/NotificationVisualized");
 const SendMessage = require("../controller/SendMessage");
 const UpdateSocketId = require("../controller/UpdateSocketId");
 const UsersAll = require("../controller/UsersAll");
@@ -27,6 +29,10 @@ global.socketIO.on("connect", (socket) => {
     socket.on("atualizarStateMessageActive", AttStateMessageActive)
 
     socket.on("newGroup", NewGroup)
+
+    socket.on("listAllNotifications", ListNotification)
+
+    socket.on("updateNotifyVisualized", NotificationVisualized)
 
   });
 };
