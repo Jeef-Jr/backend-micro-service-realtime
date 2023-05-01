@@ -3,13 +3,13 @@ const {
 } = require("../../repository/NotificationRepository");
 
 class NotificationVisualized {
-  async handle(idNotify) {
+  async handle(idReceiver) {
     await NotificationRepository.update(
       {
         isVisualizado: true,
       },
       {
-        where: { id: idNotify },
+        where: { idReceiver: idReceiver },
       }
     );
   }

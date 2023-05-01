@@ -6,7 +6,7 @@ module.exports = async (params, callback) => {
   const { arrayNotify } = params;
 
   for (const notify of arrayNotify) {
-    await new NotificationVisualized().handle(notify.id);
+    await new NotificationVisualized().handle(notify.idReceiver);
   }
 
   callback(params);

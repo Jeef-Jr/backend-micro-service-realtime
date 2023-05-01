@@ -11,20 +11,21 @@ module.exports = async (params, callback) => {
   let prevNotifications = [];
 
   for (const notify of notifications) {
-    const id = notify.idSender;
-    const { nome, img } = await new FindPersonMessage().handle(idUser);
+    const response = notify.dataValues;
+    const id = response.idSender;
+    const { nome, img } = await new FindPersonMessage().handle(id);
 
     const dados = {
       type: "GROUP",
-      id: notify.id,
+      id: response.id,
       nomeSender: nome,
       imgSender: img,
       idReceiver: idUser,
-      title: notify.title,
-      description: notify.description,
-      img: notify.img,
-      isVisualizado: notify.isVisualizado,
-      isAcepty: notify.isAcepty,
+      title: response.title,
+      description: response.description,
+      img: response.img,
+      isVisualizado: response.isVisualizado,
+      isAcepty: response.isAcepty,
     };
 
     prevNotifications.push(dados);

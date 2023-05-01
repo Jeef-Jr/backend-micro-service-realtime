@@ -1,6 +1,7 @@
 // socketIO.to(globalOnline[0]).emit("message", "mensagem para você!");
 
 const AttStateMessageActive = require("../controller/AttStateMessageActive");
+const EventGroup = require("../controller/EventGroup");
 const ListMessagesPerson = require("../controller/ListMessagesPerson");
 const ListNotification = require("../controller/ListNotification");
 const MessagesVisualized = require("../controller/MessagesVisualized");
@@ -29,6 +30,8 @@ global.socketIO.on("connect", (socket) => {
     socket.on("atualizarStateMessageActive", AttStateMessageActive)
 
     socket.on("newGroup", NewGroup)
+
+    socket.on("eventGroup", EventGroup)
 
     socket.on("listAllNotifications", ListNotification)
 
