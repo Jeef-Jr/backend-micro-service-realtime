@@ -15,6 +15,7 @@ const io = new Server(http, {
 });
 
 io.on("connection", (socket) => {
+  console.log(socket);
   socket.on("disconnect", () => {
     console.log(socket.id + " disconnected.");
   });
@@ -23,6 +24,8 @@ io.on("connection", (socket) => {
 global.socketIO = io;
 
 userSocket();
+
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
