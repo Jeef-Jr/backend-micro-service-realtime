@@ -1,6 +1,8 @@
 const { FindOneFriend } = require("../service/FindOneFriend");
 const { FindPersonMessage } = require("../service/FindPersonMessage");
-const { ListMessagesPendentService } = require("../service/ListMessagesPendentService");
+const {
+  ListMessagesPendentService,
+} = require("../service/ListMessagesPendentService");
 const {
   ListMessagesRecentesService,
 } = require("../service/ListMessagesRecentesService");
@@ -26,7 +28,6 @@ module.exports = async (params, callback) => {
   const listConversationsRecentesReceiver =
     await new ListMessagesRecentesService().handle(idReceiver);
 
-
   let messagePedentes = [];
 
   for (const element of listConversationsRecentesReceiver) {
@@ -43,13 +44,12 @@ module.exports = async (params, callback) => {
     }
   }
 
-
-  if (socketId.length > 0) {
+  if (socketId !== null && socketId.length > 0) {
     console.log("enviar mensagem para", socketId);
     global.socketIO.to(socketId).emit("newMessage", {
       dados: newMessage,
       listRecentes: listConversationsRecentesReceiver,
-      messagePedentes: messagePedentes
+      messagePedentes: messagePedentes,
     });
   }
 
