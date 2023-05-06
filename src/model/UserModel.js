@@ -10,15 +10,15 @@ const User = database.define(
       allowNull: false,
       primaryKey: true,
     },
+    idRelacionado: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     nome: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    email: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    senha: {
+    tag: {
       type: Sequelize.STRING,
       allowNull: false,
     },

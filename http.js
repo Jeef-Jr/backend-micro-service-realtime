@@ -14,8 +14,8 @@ const io = new Server(http, {
   cors: "*",
 });
 
-io.on("connection", (socket) => {
-  console.log(socket);
+io.on("connection", socket => {
+  console.log(socket.id);
   socket.on("disconnect", () => {
     console.log(socket.id + " disconnected.");
   });
@@ -24,8 +24,6 @@ io.on("connection", (socket) => {
 global.socketIO = io;
 
 userSocket();
-
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
