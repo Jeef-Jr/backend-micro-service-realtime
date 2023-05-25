@@ -19,7 +19,7 @@ function geraStringAleatoria(tamanho) {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./src/uploads/perfils");
+    cb(null, "./src/uploads/imgs");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
@@ -35,11 +35,11 @@ router.post("/newImgGroup", upload.single("img"), async (req, res) => {
   });
 });
 
-router.get("/imagem/perfil/:nomeDoArquivo", (req, res) => {
+router.get("/imagem/:nomeDoArquivo", (req, res) => {
   const nomeDoArquivo = req.params.nomeDoArquivo;
   const caminhoDaImagem = path.resolve(
     __dirname,
-    "src/uploads/perfils",
+    "src/uploads/imgs",
     nomeDoArquivo
   );
 
