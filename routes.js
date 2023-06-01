@@ -4,6 +4,12 @@ const { NewGroupController } = require("./src/controller/NewGroup");
 const path = require("path");
 const { UserRepository } = require("./src/repository/UserRepository");
 const router = Router();
+const mercadopago = require("mercadopago");
+
+mercadopago.configure({
+  access_token:
+    "TEST-5763239774736390-110802-6eacd99ce314754e2c097dd9b62c44ff-465602678",
+});
 
 function geraStringAleatoria(tamanho) {
   var stringAleatoria = "";
@@ -61,6 +67,43 @@ router.post("/adduser", async (req, res) => {
 
   res.json({
     response,
+  });
+});
+
+router.post("/create_preference", (req, res) => {
+  let preference = {
+    items: [
+      {
+        title: req.body.description,
+        unit_price: Number(req.body.price),
+        quantity: Number(req.body.quantity),
+      },
+    ],
+    back_urls: {
+      success: "http://localhost:3000/jobs",
+      failure: "http://localhost:3333/feedback",
+      pending: "http://localhost:3333/feedback",
+    },
+    auto_return: "approved",
+  };
+
+  mercadopago.preferences
+    .create(preference)
+    .then(function (response) {
+      res.json({
+        id: response.body.id,
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+});
+
+router.get("/feedback", function (req, res) {
+  res.json({
+    Payment: req.query.payment_id,
+    Status: req.query.status,
+    MerchantOrder: req.query.merchant_order_id,
   });
 });
 
