@@ -13,14 +13,16 @@ module.exports = async (params, callback) => {
   for (const notify of notifications) {
     const response = notify.dataValues;
     const id = response.idSender;
-    const { nome, img } = await new FindPersonMessage().handle(id);
+    const { nome, img, idRelacionado } = await new FindPersonMessage().handle(id);
 
     const dados = {
-      type: "GROUP",
+      type: response.type,
       id: response.id,
+      idRelacionado: idRelacionado,
       nomeSender: nome,
       imgSender: img,
       idReceiver: idUser,
+      idSender: response.idSender,
       title: response.title,
       description: response.description,
       img: response.img,
