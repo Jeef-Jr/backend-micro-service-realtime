@@ -19,8 +19,8 @@ class MessagesRepository extends MessageModel {
   static async listMessagesRecentes(myId) {
     const messages = await this.sequelize.query(
       `
-      SELECT u.id AS "idEnviou", u.nome AS "nomeEnviou", u.img AS "imagemEnviou", u.socketId AS "socketEnviou", u2.socketId AS "socketRecebeu",
-      m.message,m.idFriend, m.createdAt, u2.id AS "idRecebeu", u2.nome AS  "nomeRecebeu", u2.img AS "imagemRecebeu",
+      SELECT u.id AS "idEnviou", u.idRelacionado as "idDoFriend",  u.nome AS "nomeEnviou", u.img AS "imagemEnviou", u.socketId AS "socketEnviou", u2.socketId AS "socketRecebeu",
+      m.message, m.idFriend, m.createdAt, u2.idRelacionado as "myIdRelacionado", u2.id AS "idRecebeu", u2.nome AS  "nomeRecebeu", u2.img AS "imagemRecebeu",
       m.visualizado AS "isVisualizado"
       FROM messages AS m
       INNER JOIN users AS u ON u.id = m.idSender
@@ -56,7 +56,6 @@ class MessagesRepository extends MessageModel {
   }
 
   static async attMessagesVisualized(idFriend, myId) {
-
     const atualizar = await this.sequelize.query(
       `
       UPDATE messages AS M SET M.visualizado = 1 
@@ -66,7 +65,7 @@ class MessagesRepository extends MessageModel {
       {
         type: QueryTypes.UPDATE,
       }
-    )
+    );
 
     return atualizar;
   }

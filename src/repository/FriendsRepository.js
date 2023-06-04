@@ -9,7 +9,7 @@ class FriendsRepository extends Friend {
 
     const friends = await this.sequelize.query(
       `
-            SELECT U.id, nome, img, socketId FROM Users AS U 
+            SELECT U.id, U.idRelacionado, nome, img, socketId FROM Users AS U 
             INNER JOIN Friends AS F 
             ON U.id = F.idSender OR U.id = F.idReceiver 
             WHERE F.idSender = '${idUser}' AND U.id != '${idUser}' 

@@ -45,7 +45,6 @@ module.exports = async (params, callback) => {
   }
 
   if (socketId !== null && socketId.length > 0) {
-    console.log("enviar mensagem para", socketId);
     global.socketIO.to(socketId).emit("newMessage", {
       dados: newMessage,
       listRecentes: listConversationsRecentesReceiver,

@@ -11,8 +11,6 @@
 # production
 /build
 
-# paste
-/src/uploads/perfils/
 
 # misc
 .DS_Store
